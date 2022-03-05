@@ -6,8 +6,8 @@ import typer
 from PIL import Image
 
 # Custom
-from scripts import folders
-from scripts import time_stamp
+from auxiliary.scripts import folders
+from auxiliary.scripts import time_stamp
 
 # Typer app
 app = typer.Typer()
