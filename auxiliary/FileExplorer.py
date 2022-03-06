@@ -9,11 +9,11 @@ None
 
 
 class FileExplorer:
-    '''
+    """
     This class collections all folders from the home directory
     and provides the functions get_folders and get_files to
     the retrieve the absolute paths of the folders and their respective folders
-    '''
+    """
 
     def __init__(self, home_dir):
         self.home_dir = home_dir

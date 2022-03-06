@@ -7,40 +7,42 @@ None
 None
 
 # Custom
-
 None
 
 
 class MessageKeys:
-    '''
+    """
     This class contains the strings for the respective functions
     so that they can be accessed through dot notation.
-    '''
-
+    """
 
     class GeneratePdf:
-        '''
+        """
         see function generate_pdf
-        '''
+        """
         generate_pdf_name = "generate"
         generate_pdf_command = "Generate a .pdf from a collection of images."
+        images_generate = typer.style(
+            "The .pdf file is being generated. Please wait...",
+            fg=typer.colors.BRIGHT_MAGENTA
+            )
         generate_pdf_help = "Enter the save name of the .pdf file"
-        file_created = typer.style("File was successfully created!",
+        file_created = typer.style(".pdf file was successfully created!",
                                    fg=typer.colors.GREEN)
-        no_images = typer.style("Error: Please make sure that " \
-                    "there are images in the image directory",
+        no_images = typer.style("Error: Please make sure that "
+                                "there are images in the image directory",
                                 fg=typer.colors.RED)
         missing_directory = typer.style(
             "Error: The image directory is missing!",
             fg=typer.colors.BRIGHT_MAGENTA)
 
     class AddMetadata:
-        '''
+        """
         see function add_metadata
-        '''
-        add_metadta_name = "metadata"
-        add_metadta_help = "Add the data from the .yaml file " \
-                           "to the .pdf as metadata."
+        """
+        add_metadata_name = "metadata"
+        add_metadata_help = "Add the data from the .yaml file " \
+                            "to the .pdf as metadata."
 
         meta_pdf = "The name of the .pdf that should have metadata added."
 
@@ -49,9 +51,9 @@ class MessageKeys:
                                   "correctly formatted the .yaml file",
                                   fg=typer.colors.RED)
 
-        yamal_not_exist = typer.style(
+        yaml_not_exist = typer.style(
             "The .yaml file that you have selected does not exist.",
-            fg =typer.colors.RED
+            fg=typer.colors.RED
         )
 
         pdf_error = typer.style("The .pdf either does not exist or is corrupt"

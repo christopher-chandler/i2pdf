@@ -24,7 +24,7 @@ add_meta = mk.AddMetadata
 
 @app.command(name=generate.generate_pdf_name,
              help=generate.generate_pdf_command)
-def generate_pdf(save_name: str = typer.Argument("gen",
+def generate_pdf(save_name: str = typer.Argument("generated",
                                             help=generate.generate_pdf_help)):
     """
     description:
@@ -49,6 +49,7 @@ def generate_pdf(save_name: str = typer.Argument("gen",
         raise SystemExit(typer.echo(generate.missing_directory))
 
     images: list = []
+
     valid_images: list = [".jpg", ".gif", ".png", ".tga"]
 
     for file_name in os.listdir(image_dir):
@@ -66,15 +67,19 @@ def generate_pdf(save_name: str = typer.Argument("gen",
         save: str = fr"{folders.get('pdfs')}/{save_name}.pdf"
 
         # .pdf generation
-        first_image.save(save, save_all=True, append_images=images[1:])
+        print(generate.images_generate)
+        first_image.save(save,
+                         save_all=True,
+                         append_images=images[1:])
+
         typer.echo(generate.file_created)
 
     else:
         typer.echo(generate.no_images)
 
 
-@app.command(name=add_meta.add_metadta_name,
-             help=add_meta.add_metadta_help)
+@app.command(name=add_meta.add_metadata_name,
+             help=add_meta.add_metadata_help)
 def add_metadata(
         pdf_name: str = typer.Argument("", help=add_meta.meta_pdf),
         config_name: str = typer.Argument("", help=add_meta.yaml_config)):
@@ -113,7 +118,7 @@ def add_metadata(
         if "yaml" in str(error):
             raise SystemExit(typer.echo(add_meta.yamal_error))
         else:
-            raise SystemExit(typer.echo(add_meta.yamal_not_exist))
+            raise SystemExit(typer.echo(add_meta.yaml_not_exist))
 
     # .pdf variables
     reader = PdfFileReader(pdf_in)
