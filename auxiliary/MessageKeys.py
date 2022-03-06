@@ -1,10 +1,8 @@
 # Standard
-import typer
-
 None
 
 # Pip
-None
+import typer
 
 # Custom
 None
