@@ -1,1 +1,1 @@
-The compiled .pdfs are saved in this directory.
+This is where .pdfs with generated metadata are saved.
