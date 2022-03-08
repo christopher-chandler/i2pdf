@@ -1,13 +1,13 @@
 # Standard
 import os
-import yaml
-from yaml.scanner import ScannerError
-from zipfile import ZipFile
+import platform
 
 # Pip
 import typer
+import yaml
 from PIL import Image
 from PyPDF2 import PdfFileReader, PdfFileWriter
+from yaml.scanner import ScannerError
 
 # Custom
 from auxiliary.MessageKeys import MessageKeys as mk
@@ -25,22 +25,42 @@ generate = mk.GeneratePdf
 add_meta = mk.AddMetadata
 gen_dir = mk.GenerateDir
 
+# Mac and Windows use different slashes.
+system: str = platform.system()
+if system == "Darwin":
+    slash = "/"
+elif system == "Windows":
+    slash = "\\"
+
+
 @app.command(
     name=gen_dir.generate_dir,
-    help =gen_dir.generate_dir_help
+    help=gen_dir.generate_dir_help
 )
-def generate_directories(dir: str = typer.Argument(current_dir)):
+def generate_directories() -> None:
+    """
+    Generating directories wherein the file that should be combined
+    are to reside.
 
-    folder = ["config", "images", "pdfs", "results"]
+        example:
+        python main_app.py gen-dir
+    :return:
+        None
+    """
 
-    for f in folder:
-        os.makedirs(f)
+    try:
+        typer.echo(gen_dir.generating_dir)
+        [os.makedirs(f) for f in ["config", "images", "pdfs", "results"]]
+        typer.echo(gen_dir.directory_generated)
+    except FileExistsError:
+        typer.echo(gen_dir.folders_exists)
 
 
 @app.command(name=generate.generate_pdf_name,
              help=generate.generate_pdf_command)
 def generate_pdf(save_name: str = typer.Argument("generated",
-                                            help=generate.generate_pdf_help)):
+                                            help=generate.generate_pdf_help)
+                 ) -> None:
     """
     description:
          Images gathered from the images directory are combined into a single
@@ -48,7 +68,7 @@ def generate_pdf(save_name: str = typer.Argument("generated",
         library, .jpg, .gif, .png and .tga are supported.
 
     example:
-        python main_app.py generate
+        python main_app.py gen-pdf
 
     :arg:
          save_name: str the name of the .pdf file being saved.
@@ -64,8 +84,7 @@ def generate_pdf(save_name: str = typer.Argument("generated",
         raise SystemExit(typer.echo(generate.missing_directory))
 
     images: list = []
-
-    valid_images: list = [".jpg", ".gif", ".png", ".tga"]
+    valid_images: list = [".jpg", ".jpeg", ".gif", ".png", ".tga"]
 
     for file_name in os.listdir(image_dir):
         ext: str = os.path.splitext(file_name)[1]
@@ -79,16 +98,14 @@ def generate_pdf(save_name: str = typer.Argument("generated",
         first_image = images[0]
         folders = files.get_folders()
 
-        save: str = fr"{folders.get('pdfs')}/{save_name}.pdf"
+        save: str = fr"{folders.get('pdfs')}{slash}{save_name}.pdf"
 
         # .pdf generation
-        print(generate.images_generate)
+        typer.echo(generate.images_generate)
         first_image.save(save,
                          save_all=True,
                          append_images=images[1:])
-
         typer.echo(generate.file_created)
-
     else:
         typer.echo(generate.no_images)
 
@@ -97,7 +114,8 @@ def generate_pdf(save_name: str = typer.Argument("generated",
              help=add_meta.add_metadata_help)
 def add_metadata(
         pdf_name: str = typer.Argument("", help=add_meta.meta_pdf),
-        config_name: str = typer.Argument("", help=add_meta.yaml_config)):
+        config_name: str = typer.Argument("", help=add_meta.yaml_config)
+        ) -> None:
 
     """
     description:
@@ -105,7 +123,7 @@ def add_metadata(
         as metadata
 
     example:
-        python main_app.py metadata gen.pdf test.yaml
+        python main_app.py add-metadata gen.pdf test.yaml
 
     :arg:
         pdf_name: str is the name of the .pdf which should have metadata added
@@ -120,18 +138,18 @@ def add_metadata(
 
     # Loading pdf file
     try:
-        pdf = files.get_files("pdfs").get(pdf_name)
+        pdf: str = files.get_files("pdfs").get(pdf_name)
         pdf_in = open(pdf, "rb")
-    except TypeError as error:
+    except TypeError:
         raise SystemExit((typer.echo(add_meta.pdf_error)))
 
     # Loading .yaml file
     try:
-        config_file = files.get_files("config").get(config_name)
+        config_file: str = files.get_files("config").get(config_name)
         yaml_meta = yaml.load(open(config_file), Loader=yaml.FullLoader)
     except (TypeError, ScannerError) as error:
         if "yaml" in str(error):
-            raise SystemExit(typer.echo(add_meta.yamal_error))
+            raise SystemExit(typer.echo(add_meta.yaml_error))
         else:
             raise SystemExit(typer.echo(add_meta.yaml_not_exist))
 
@@ -146,8 +164,8 @@ def add_metadata(
     writer.addMetadata(yaml_meta)
 
     # pdf with metadata
-    save_path = files.get_folders().get("results")
-    pdf_out = open(rf"{save_path}\{pdf_name}", "wb")
+    save_path: str = files.get_folders().get("results")
+    pdf_out = open(rf"{save_path}{slash}{pdf_name}", "wb")
     writer.write(pdf_out)
 
     # Closing files

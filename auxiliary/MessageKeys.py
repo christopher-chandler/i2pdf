@@ -15,14 +15,25 @@ class MessageKeys:
     """
 
     class GenerateDir:
-        generate_dir ="generate-dir"
-        generate_dir_help = "Generating directories " \
-                            "where the files should reside."
+        """
+        see function generate_directories
+        """
+        generate_dir = "gen-dir"
+        generate_dir_help = "Generate directories where " \
+                            "the files should reside."
+
+        generating_dir = "Directories being generated."
+        directory_generated = typer.style("Directories have been generated.",
+                                          fg=typer.colors.GREEN)
+        folders_exists = typer.style(
+            "The folders already exist in this directory.", fg=typer.colors.RED
+        )
+
     class GeneratePdf:
         """
         see function generate_pdf
         """
-        generate_pdf_name = "generate-pdf"
+        generate_pdf_name = "gen-pdf"
         generate_pdf_command = "Generate a .pdf from a collection of images."
         images_generate = typer.style(
             "The .pdf file is being generated. Please wait...",
@@ -48,10 +59,10 @@ class MessageKeys:
 
         meta_pdf = "The name of the .pdf that should have metadata added."
 
-        yamal_error = typer.style("The .yaml file could not be parsed. "
+        yaml_error = typer.style("The .yaml file could not be parsed. "
                                   "\nPlease make sure that you have "
                                   "correctly formatted the .yaml file",
-                                  fg=typer.colors.RED)
+                                 fg=typer.colors.RED)
 
         yaml_not_exist = typer.style(
             "The .yaml file that you have selected does not exist.",
