@@ -1,3 +1,0 @@
-This is where the config files are saved.
-The metadata is saved in the yaml format and then loaded to the
-respective .pdf

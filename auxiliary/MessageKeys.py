@@ -14,11 +14,15 @@ class MessageKeys:
     so that they can be accessed through dot notation.
     """
 
+    class GenerateDir:
+        generate_dir ="generate-dir"
+        generate_dir_help = "Generating directories " \
+                            "where the files should reside."
     class GeneratePdf:
         """
         see function generate_pdf
         """
-        generate_pdf_name = "generate"
+        generate_pdf_name = "generate-pdf"
         generate_pdf_command = "Generate a .pdf from a collection of images."
         images_generate = typer.style(
             "The .pdf file is being generated. Please wait...",
@@ -38,7 +42,7 @@ class MessageKeys:
         """
         see function add_metadata
         """
-        add_metadata_name = "metadata"
+        add_metadata_name = "add-metadata"
         add_metadata_help = "Add the data from the .yaml file " \
                             "to the .pdf as metadata."
 

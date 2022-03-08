@@ -2,6 +2,8 @@
 import os
 import yaml
 from yaml.scanner import ScannerError
+from zipfile import ZipFile
+
 # Pip
 import typer
 from PIL import Image
@@ -15,11 +17,24 @@ from auxiliary.FileExplorer import FileExplorer
 app = typer.Typer()
 
 # Files
-files = FileExplorer(home_dir=os.getcwd())
+current_dir = os.getcwd()
+files = FileExplorer(home_dir=current_dir)
 
 # Message keys
 generate = mk.GeneratePdf
 add_meta = mk.AddMetadata
+gen_dir = mk.GenerateDir
+
+@app.command(
+    name=gen_dir.generate_dir,
+    help =gen_dir.generate_dir_help
+)
+def generate_directories(dir: str = typer.Argument(current_dir)):
+
+    folder = ["config", "images", "pdfs", "results"]
+
+    for f in folder:
+        os.makedirs(f)
 
 
 @app.command(name=generate.generate_pdf_name,
@@ -33,7 +48,7 @@ def generate_pdf(save_name: str = typer.Argument("generated",
         library, .jpg, .gif, .png and .tga are supported.
 
     example:
-        python main.py generate
+        python main_app.py generate
 
     :arg:
          save_name: str the name of the .pdf file being saved.
@@ -90,7 +105,7 @@ def add_metadata(
         as metadata
 
     example:
-        python main.py metadata gen.pdf test.yaml
+        python main_app.py metadata gen.pdf test.yaml
 
     :arg:
         pdf_name: str is the name of the .pdf which should have metadata added
