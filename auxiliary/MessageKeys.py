@@ -15,9 +15,10 @@ class MessageKeys:
     """
 
     class GenerateDir:
-        generate_dir ="generate-dir"
+        generate_dir = "generate-dir"
         generate_dir_help = "Generating directories " \
                             "where the files should reside."
+
     class GeneratePdf:
         """
         see function generate_pdf

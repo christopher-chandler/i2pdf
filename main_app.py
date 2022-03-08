@@ -1,13 +1,13 @@
 # Standard
 import os
-import yaml
-from yaml.scanner import ScannerError
-from zipfile import ZipFile
+import platform
 
 # Pip
 import typer
+import yaml
 from PIL import Image
 from PyPDF2 import PdfFileReader, PdfFileWriter
+from yaml.scanner import ScannerError
 
 # Custom
 from auxiliary.MessageKeys import MessageKeys as mk
@@ -25,14 +25,21 @@ generate = mk.GeneratePdf
 add_meta = mk.AddMetadata
 gen_dir = mk.GenerateDir
 
+# Mac and Windows use
+system = platform.system()
+if system == "Darwin":
+    slash = "/"
+elif system == "Windows":
+    slash = "\\"
+
+
 @app.command(
     name=gen_dir.generate_dir,
-    help =gen_dir.generate_dir_help
+    help=gen_dir.generate_dir_help
 )
-def generate_directories(dir: str = typer.Argument(current_dir)):
+def generate_directories():
 
     folder = ["config", "images", "pdfs", "results"]
-
     for f in folder:
         os.makedirs(f)
 
@@ -64,8 +71,7 @@ def generate_pdf(save_name: str = typer.Argument("generated",
         raise SystemExit(typer.echo(generate.missing_directory))
 
     images: list = []
-
-    valid_images: list = [".jpg", ".gif", ".png", ".tga"]
+    valid_images: list = [".jpg", ".jpeg", ".gif", ".png", ".tga"]
 
     for file_name in os.listdir(image_dir):
         ext: str = os.path.splitext(file_name)[1]
@@ -79,16 +85,14 @@ def generate_pdf(save_name: str = typer.Argument("generated",
         first_image = images[0]
         folders = files.get_folders()
 
-        save: str = fr"{folders.get('pdfs')}/{save_name}.pdf"
+        save: str = fr"{folders.get('pdfs')}{slash}{save_name}.pdf"
 
         # .pdf generation
-        print(generate.images_generate)
+        typer.echo(generate.images_generate)
         first_image.save(save,
                          save_all=True,
                          append_images=images[1:])
-
         typer.echo(generate.file_created)
-
     else:
         typer.echo(generate.no_images)
 
@@ -147,7 +151,7 @@ def add_metadata(
 
     # pdf with metadata
     save_path = files.get_folders().get("results")
-    pdf_out = open(rf"{save_path}\{pdf_name}", "wb")
+    pdf_out = open(rf"{save_path}{slash}{pdf_name}", "wb")
     writer.write(pdf_out)
 
     # Closing files
