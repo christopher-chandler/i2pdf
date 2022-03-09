@@ -116,7 +116,7 @@ Arguments:
 
 Example:
 ```
-i2pdf generate-pdf testfile
+i2pdf gen-pdf testfile
 ```
 Place the images in this file that are to be combined to a .pdf file.
 You have the option of specifying a name for the file being generated.
