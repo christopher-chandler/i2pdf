@@ -109,7 +109,7 @@ def generate_pdf(save_name: str = typer.Argument("generated",
 @app.command(name=add_meta.add_metadata_name, help=add_meta.add_metadata_help)
 def add_metadata(pdf_name: str = typer.Argument("", help=add_meta.meta_pdf),
         config_name: str = typer.Argument("", help=add_meta.yaml_config),
-        save_name: str = typer.Argument("results", help=add_meta.yaml_config)
+        save_name: str = typer.Argument("results", help=add_meta.save_name)
         ) -> None:
 
     """

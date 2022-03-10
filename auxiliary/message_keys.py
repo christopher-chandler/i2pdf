@@ -58,7 +58,7 @@ class MessageKeys:
                             "to the .pdf as metadata."
 
         meta_pdf = "The name of the .pdf that should have metadata added."
-
+        save_name = "The name of the new .pdf file with metadata."
         yaml_error = typer.style("The .yaml file could not be parsed. "
                                   "\nPlease make sure that you have "
                                   "correctly formatted the .yaml file",
@@ -74,7 +74,7 @@ class MessageKeys:
                                      "Please check the file name.",
                                      fg=typer.colors.RED)
 
-        pdf_corrupt= typer.style("The file you entered is either corrput or "
+        pdf_corrupt = typer.style("The file you entered is either corrput or "
                                  "is not a .pdf file. "
                                  "Please check the file again.",
                                       fg=typer.colors.RED)
