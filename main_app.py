@@ -84,7 +84,7 @@ def generate_pdf(save_name: str = typer.Argument("generated",
     images: list = []
     valid_images: list = [".jpg", ".jpeg", ".gif", ".png", ".tga"]
 
-    for file_name in os.listdir(image_dir):
+    for file_name in sorted(os.listdir(image_dir)):
         ext: str = os.path.splitext(file_name)[1]
         if ext.lower() not in valid_images:
             continue
