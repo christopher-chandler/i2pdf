@@ -69,8 +69,15 @@ class MessageKeys:
             fg=typer.colors.RED
         )
 
-        pdf_error = typer.style("The .pdf either does not exist or is corrupt"
-                                "Please check the file", fg=typer.colors.RED)
+        pdf_not_exists = typer.style("The .pdf either does not exist or the "
+                                     "file name was not entered correctly. "
+                                     "Please check the file name.",
+                                     fg=typer.colors.RED)
+
+        pdf_corrupt= typer.style("The file you entered is either corrput or "
+                                 "is not a .pdf file. "
+                                 "Please check the file again.",
+                                      fg=typer.colors.RED)
 
         yaml_config = "The name of the .yaml file " \
                       "which contains the config data."
