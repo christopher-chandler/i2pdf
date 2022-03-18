@@ -9,7 +9,8 @@ option of assigning metadata to this generated .pdf.
 ![System](https://img.shields.io/badge/Windows-Tested-yellow)
 ![System](https://img.shields.io/badge/Mac-Tested-purple)
 
-
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
 # License 
 i2pdf comes with the [MIT](https://opensource.org/licenses/MIT) license.
 Please use this license when reusing this code. 
