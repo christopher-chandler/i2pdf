@@ -6,7 +6,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/christopher-chandler/i2pdf">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+    <img src="images/logo.png" alt="i2pdf" width="80" height="80">
   </a>
 
 ![Version][Version-shield]  [![MIT License][license-shield]][license-url] ![update][update-shield]
@@ -60,7 +60,7 @@
 
 <div align="center">
   <a href="https://github.com/christopher-chandler/i2pdf">
-    <img src="img/screen.png" alt="Logo" width="80" height="80">
+    <img src="img/screen.png" alt="Logo" width="600" height="300">
   </a>
 </div>
 <p align="right">(<a href="#top">back to top</a>)</p>
