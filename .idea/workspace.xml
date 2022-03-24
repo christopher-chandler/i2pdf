@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ceb654de-c79b-4ff8-bdd0-a40425190b4a" name="Changes" comment="updated readme">
-      <change afterPath="$PROJECT_DIR$/img/screen.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -45,7 +44,21 @@
       <option name="project" value="LOCAL" />
       <updated>1648099839463</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="updated readme">
+      <created>1648132876101</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1648132876101</updated>
+    </task>
+    <task id="LOCAL-00003" summary="updated readme">
+      <created>1648133027720</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1648133027720</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
