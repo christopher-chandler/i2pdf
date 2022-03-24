@@ -60,7 +60,7 @@
 
 <div align="center">
   <a href="https://github.com/christopher-chandler/i2pdf">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+    <img src="img/screen.png" alt="Logo" width="80" height="80">
   </a>
 </div>
 <p align="right">(<a href="#top">back to top</a>)</p>
