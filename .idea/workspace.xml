@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ceb654de-c79b-4ff8-bdd0-a40425190b4a" name="Changes" comment="updated readme" />
+    <list default="true" id="ceb654de-c79b-4ff8-bdd0-a40425190b4a" name="Changes" comment="updated readme">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -25,7 +27,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="exceleditor.install" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/img" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Generally-American-English-Discord-Bot" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RecentsManager">
@@ -41,7 +43,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1648058302724</updated>
-      <workItem from="1648915252431" duration="425000" />
+      <workItem from="1648915252431" duration="897000" />
     </task>
     <task id="LOCAL-00001" summary="updated readme">
       <created>1648099839462</created>
@@ -85,7 +87,14 @@
       <option name="project" value="LOCAL" />
       <updated>1648915540513</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="updated readme">
+      <created>1648916094210</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1648916094210</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
