@@ -6,7 +6,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/christopher-chandler/i2pdf">
-    <img src="images/logo.png" alt="i2pdf" width="80" height="80">
+    <img src="img/logo.png" alt="i2pdf" width="150" height="150">
   </a>
 
 ![Version][Version-shield]  [![MIT License][license-shield]][license-url] ![update][update-shield]
