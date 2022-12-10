@@ -39,7 +39,7 @@ class FileExplorer:
 
         folders: list = os.listdir(home_dir)
         for f in folders:
-            file_paths[f] = fr"{home_dir}{slash}{f}"
+            file_paths[f] = rf"{home_dir}{slash}{f}"
 
         return file_paths
 
@@ -60,10 +60,10 @@ class FileExplorer:
 
         dir_fold: list = os.listdir(folders)
         for f in dir_fold:
-            file_paths[f] = fr"{home_dir}{slash}{folder}{slash}{f}"
+            file_paths[f] = rf"{home_dir}{slash}{folder}{slash}{f}"
 
         return file_paths
 
 
 if __name__ == "__main__":
-     pass
+    pass

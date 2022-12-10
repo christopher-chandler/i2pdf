@@ -1,30 +1,34 @@
 # Standard
+import datetime
 import os
 import platform
+
+from typing import Optional
 
 # Pip
 import typer
 import yaml
+
 from PIL import Image
 from PyPDF2 import PdfFileReader, PdfFileWriter
 from yaml.scanner import ScannerError
 from yaml.loader import SafeLoader
 
 # Custom
-from auxiliary.message_keys import MessageKeys as mk
+from auxiliary.message_keys import MessageKeys as Mk
 from auxiliary.file_explorer import FileExplorer
 
 # Typer app
-app = typer.Typer()
+app = typer.Typer(no_args_is_help=True)
 
 # Files
 current_dir = os.getcwd()
 files = FileExplorer(home_dir=current_dir)
 
 # Message keys
-generate = mk.GeneratePdf
-add_meta = mk.AddMetadata
-gen_dir = mk.GenerateDir
+generate = Mk.GeneratePdf
+add_meta = Mk.AddMetadata
+gen_dir = Mk.GenerateDir
 
 # Mac and Windows use different slashes.
 system: str = platform.system()
@@ -33,11 +37,14 @@ if system == "Darwin":
 elif system == "Windows":
     slash = "\\"
 
+now = datetime.datetime.now()
+timestamp = now.strftime("%Y_%m_%d_%H_%M_%S")
+
 
 @app.command(name=gen_dir.generate_dir, help=gen_dir.generate_dir_help)
 def generate_directories() -> None:
     """
-    Generating directories wherein the file that should be combined
+    Generating directories wherein the files that should be combined
     are to reside.
 
         example:
@@ -45,27 +52,38 @@ def generate_directories() -> None:
     :return:
         None
     """
-
     try:
         typer.echo(gen_dir.generating_dir)
-        [os.makedirs(f) for f in ["config", "images", "pdfs", "results"]]
+        [
+            os.makedirs(folder_dir)
+            for folder_dir in ["config", "images", "pdfs", "results"]
+        ]
         typer.echo(gen_dir.directory_generated)
     except FileExistsError:
         typer.echo(gen_dir.folders_exists)
 
 
-@app.command(name=generate.generate_pdf_name,
-             help=generate.generate_pdf_command)
-def generate_pdf(save_name: str = typer.Argument("generated",
-                                                help=generate.generate_pdf_help
-                                                 )) -> None:
+@app.command(name=generate.generate_pdf_name, help=generate.generate_pdf_command)
+def generate_pdf(
+    dir_name: Optional[str] = typer.Option(
+        current_dir,
+        generate.generate_custom_dir_long,
+        generate.generate_custom_dir_short,
+        help=generate.generate_pdf_help,
+    ),
+    save_name: Optional[str] = typer.Option(
+        f"generated_{timestamp}",
+        generate.generated_file_name_long,
+        generate.generated_file_name_short,
+        help=generate.generate_pdf_help,
+    ),
+) -> None:
     """
-    description:
+    Description:
          Images gathered from the images directory are combined into a single
         .pdf file that is then placed in the pdfs directory. Using the PIL
         library, .jpg, .gif, .png and .tga are supported.
-
-    example:
+    Example:
         python main_app.py gen-pdf
 
     :arg:
@@ -75,42 +93,63 @@ def generate_pdf(save_name: str = typer.Argument("generated",
         no returns
     """
 
-    image_dir: str = files.get_folders().get("images", "")
+    if dir_name != "images":
+        image_dir = dir_name
+    else:
+        image_dir: str = files.get_folders().get("images", current_dir)
+
     path_exist: bool = os.path.exists(image_dir)
 
     if not path_exist:
         raise SystemExit(typer.echo(generate.missing_directory))
 
-    images: list = []
+    image_collection: list = []
+    image_path_names: list = []
     valid_images: list = [".jpg", ".jpeg", ".gif", ".png", ".tga"]
+    c = 0
 
     for file_name in sorted(os.listdir(image_dir)):
+
         ext: str = os.path.splitext(file_name)[1]
         if ext.lower() not in valid_images:
             continue
 
         img: str = os.path.join(image_dir, file_name)
-        images.append(Image.open(img))
+        image_path_names.append(img)
+        image_collection.append(Image.open(img))
 
-    if images:
-        first_image = images[0]
+    if image_collection:
+        first_image = image_collection[0]
         folders = files.get_folders()
 
-        save: str = fr"{folders.get('pdfs')}{slash}{save_name}.pdf"
+        if not image_dir:
+            save: str = rf"{folders.get('pdfs')}{slash}{save_name}.pdf"
+        else:
+            save: str = rf"{image_dir}{slash}{save_name}.pdf"
 
         # .pdf generation
         typer.echo(generate.images_generate)
-        first_image.save(save, save_all=True, append_images=images[1:])
+        first_image.save(save, save_all=True, append_images=image_collection[1:])
         typer.echo(generate.file_created)
+
+        # Deleting images from directory
+        answer = typer.prompt("Delete files ?: yes/y ")
+        confirmation = ("y", "yes")
+        if answer.lower() in confirmation:
+            for image in image_path_names:
+                os.remove(image)
+            typer.echo(generate.images_removed)
     else:
-        typer.echo(generate.no_images)
+        dir_echo_name = typer.style(dir_name, fg=typer.colors.BRIGHT_YELLOW)
+        typer.echo(f"{generate.no_images} '{dir_echo_name}'")
 
 
 @app.command(name=add_meta.add_metadata_name, help=add_meta.add_metadata_help)
-def add_metadata(pdf_name: str = typer.Argument("", help=add_meta.meta_pdf),
-        config_name: str = typer.Argument("", help=add_meta.yaml_config),
-        save_name: str = typer.Argument("results", help=add_meta.save_name)
-        ) -> None:
+def add_metadata(
+    pdf_name: str = typer.Argument("", help=add_meta.meta_pdf),
+    config_name: str = typer.Argument("", help=add_meta.yaml_config),
+    save_name: str = typer.Argument("results", help=add_meta.save_name),
+) -> None:
 
     """
     description:
@@ -171,6 +210,7 @@ def add_metadata(pdf_name: str = typer.Argument("", help=add_meta.meta_pdf),
 
         # Added metadata
         typer.echo(add_meta.metadata_added)
+
     except OSError:
         raise SystemExit((typer.echo(add_meta.pdf_corrupt)))
 

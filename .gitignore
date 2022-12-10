@@ -1,1 +1,4 @@
 .idea
+/i2pdf.egg-info/
+/build/
+update.bash
