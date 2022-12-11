@@ -14,7 +14,7 @@ long_description = (this_directory / "README.md").read_text()
 setup(
     name="i2pdf",
     version="1.1.1",
-    scripts=["main_app.py"],
+    scripts=["i2pdf.py"],
     packages=["auxiliary"],
     entry_points={"console_scripts": ["image2pdf=i2pdf:app",
                                       "i2pdf= i2pdf:app"]},

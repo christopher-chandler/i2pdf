@@ -86,10 +86,10 @@ i2pdf was created with python 3.9 and should be used with this version of python
 
 ### Prerequisites
 
-
 #### Standard Libraries
 The following standard libraries are used. 
 ```
+datetime
 os
 platform
 ```
@@ -102,17 +102,22 @@ typer~=0.4.0
 PyYAML~=6.0
 Pillow~=9.0.1
 PyPDF2~=1.26.0
+setuptools~=58.1.0
 ```
 
 ### Installation
 
 To install i2pdf, enter the following command in the command prompt:
 
+1) pypi installation
 ```
 pip install i2pdf
 ```
 
-
+2) build from local project 
+```
+bash build_package.bash
+```
 If the installation was successful, then the following text 
 should appear in the terminal 
 
