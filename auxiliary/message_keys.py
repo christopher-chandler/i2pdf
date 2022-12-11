@@ -54,6 +54,10 @@ class MessageKeys:
             "The images have been removed from the directory",
             fg=typer.colors.RED,
         )
+
+        retain_images = typer.style("Images will not be deleted",
+                                    fg=typer.colors.GREEN)
+
         missing_directory = typer.style(
             "Error: The image directory is missing!", fg=typer.colors.RED
         )
@@ -85,7 +89,8 @@ class MessageKeys:
         )
 
         yaml_not_exist = typer.style(
-            "The .yaml file that you have selected does not exist.", fg=typer.colors.RED
+            "The .yaml file that you have selected does not exist.",
+            fg=typer.colors.RED
         )
 
         pdf_not_exists = typer.style(
@@ -106,3 +111,5 @@ class MessageKeys:
         metadata_added = typer.style(
             "The metadata has been successfully added!", fg=typer.colors.GREEN
         )
+
+        results = "results"

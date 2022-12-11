@@ -106,8 +106,6 @@ def generate_pdf(
     image_collection: list = []
     image_path_names: list = []
     valid_images: list = [".jpg", ".jpeg", ".gif", ".png", ".tga"]
-    c = 0
-
     for file_name in sorted(os.listdir(image_dir)):
 
         ext: str = os.path.splitext(file_name)[1]
@@ -123,22 +121,26 @@ def generate_pdf(
         folders = files.get_folders()
 
         if not image_dir:
-            save: str = rf"{folders.get('pdfs')}{slash}{save_name}.pdf"
+            generated_pdf: str = rf"{folders.get('pdfs')}{slash}{save_name}.pdf"
         else:
-            save: str = rf"{image_dir}{slash}{save_name}.pdf"
+            generated_pdf: str = rf"{image_dir}{slash}{save_name}.pdf"
 
         # .pdf generation
         typer.echo(generate.images_generate)
-        first_image.save(save, save_all=True, append_images=image_collection[1:])
+        first_image.save(generated_pdf, save_all=True,
+                         append_images=image_collection[1:])
         typer.echo(generate.file_created)
 
         # Deleting images from directory
         answer = typer.prompt("Delete files ?: yes/y ")
         confirmation = ("y", "yes")
+
         if answer.lower() in confirmation:
             for image in image_path_names:
                 os.remove(image)
             typer.echo(generate.images_removed)
+        else:
+            typer.echo(generate.retain_images)
     else:
         dir_echo_name = typer.style(dir_name, fg=typer.colors.BRIGHT_YELLOW)
         typer.echo(f"{generate.no_images} '{dir_echo_name}'")
@@ -148,7 +150,7 @@ def generate_pdf(
 def add_metadata(
     pdf_name: str = typer.Argument("", help=add_meta.meta_pdf),
     config_name: str = typer.Argument("", help=add_meta.yaml_config),
-    save_name: str = typer.Argument("results", help=add_meta.save_name),
+    save_name: str = typer.Argument(add_meta.results, help=add_meta.save_name),
 ) -> None:
 
     """

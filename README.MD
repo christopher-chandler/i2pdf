@@ -255,13 +255,10 @@ Project Link: [https://github.com/christopher-chandler/i2pdf](https://github.com
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
-
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 
 /
-
-
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
