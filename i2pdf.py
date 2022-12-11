@@ -63,7 +63,8 @@ def generate_directories() -> None:
         typer.echo(gen_dir.folders_exists)
 
 
-@app.command(name=generate.generate_pdf_name, help=generate.generate_pdf_command)
+@app.command(name=generate.generate_pdf_name,
+             help=generate.generate_pdf_command)
 def generate_pdf(
     dir_name: Optional[str] = typer.Option(
         current_dir,
@@ -152,7 +153,6 @@ def add_metadata(
     config_name: str = typer.Argument("", help=add_meta.yaml_config),
     save_name: str = typer.Argument(add_meta.results, help=add_meta.save_name),
 ) -> None:
-
     """
     description:
         the data from the .yaml file is added to the respective .pdf file
@@ -198,8 +198,18 @@ def add_metadata(
         metadata = reader.getDocumentInfo()
         writer.addMetadata(metadata)
 
+        typer.echo(f"The following metadata has been added:")
+        for data in dict(yaml_meta):
+            typer.echo(dict(yaml_meta).get(data))
+
         # config file
-        writer.addMetadata(yaml_meta)
+        writer.addMetadata(
+            {
+                '/Author': yaml_meta.get('/Author', 'Author unknown'),
+                '/Title': yaml_meta.get('/Title', 'Title unknown'),
+                '/Keywords': yaml_meta.get('/Keywords', 'Keywords unknown')
+            }
+        )
 
         # .pdf with metadata
         save_path: str = files.get_folders().get("results")

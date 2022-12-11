@@ -1,0 +1,12 @@
+LICENSE
+i2pdf.py
+setup.py
+auxiliary/__init__.py
+auxiliary/file_explorer.py
+auxiliary/message_keys.py
+i2pdf.egg-info/PKG-INFO
+i2pdf.egg-info/SOURCES.txt
+i2pdf.egg-info/dependency_links.txt
+i2pdf.egg-info/entry_points.txt
+i2pdf.egg-info/requires.txt
+i2pdf.egg-info/top_level.txt

@@ -1,0 +1,4 @@
+[console_scripts]
+i2pdf = i2pdf:app
+image2pdf = i2pdf:app
+
